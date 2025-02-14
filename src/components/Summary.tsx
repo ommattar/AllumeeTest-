@@ -20,7 +20,7 @@ export const Summary: React.FC<SummaryProps> = ({
       }}
     >
       <p>
-        <strong>Total Duration:</strong> {totalDuration}s
+        <strong>Scenography total Duration:</strong> {totalDuration}s
       </p>
       <p>
         <strong>Scenes Duration:</strong> {totalScenesDuration}s
