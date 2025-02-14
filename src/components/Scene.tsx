@@ -57,7 +57,9 @@ export const Scene: React.FC<SceneProps> = ({
           <button
             onClick={() => addScene(index)}
             style={{
+              borderRadius: "4px",
               backgroundColor: "green",
+              border: "none",
               color: "white",
               padding: "8px",
               marginLeft: "8px",
@@ -69,6 +71,8 @@ export const Scene: React.FC<SceneProps> = ({
             <button
               onClick={() => removeScene(index)}
               style={{
+                borderRadius: "4px",
+                border: "none",
                 backgroundColor: "red",
                 color: "white",
                 padding: "8px",

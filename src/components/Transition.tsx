@@ -22,7 +22,7 @@ export const Transition: React.FC<TransitionProps> = ({
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <span style={{ color: "#888", marginRight: "8px" }}>
-          Transition: {transition.name}
+          TR: {transition.name}
         </span>
         <input
           type="number"
