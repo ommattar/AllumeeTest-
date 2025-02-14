@@ -31,6 +31,14 @@ export const Scene: React.FC<SceneProps> = ({
       }}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
+        <label
+          style={{
+            marginRight: "8px",
+            fontWeight: "bold",
+          }}
+        >
+          Scene {index + 1}:
+        </label>
         <input
           type="text"
           value={scene.name}

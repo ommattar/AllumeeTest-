@@ -3,6 +3,7 @@ import { Scene } from "./components/Scene";
 import { Transition } from "./components/Transition";
 import { Summary } from "./components/Summary";
 import { ControlPanel } from "./components/ControlPanel";
+import { Header } from "./components/Header";
 import { Scene as SceneType, Transition as TransitionType } from "./types";
 
 export default function ShowPlanner() {
@@ -117,7 +118,7 @@ export default function ShowPlanner() {
 
   return (
     <div style={{ padding: "24px", maxWidth: "640px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>Show Planner</h1>
+      <Header />
       <div style={{ marginTop: "16px" }}>
         {scenes.map((scene, index) => (
           <React.Fragment key={scene.id}>
