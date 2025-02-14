@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Scene } from "./components/Scene";
 import { Transition } from "./components/Transition";
 import { Summary } from "./components/Summary";
@@ -8,7 +8,6 @@ export default function ShowPlanner() {
   const [scenes, setScenes] = useState<SceneType[]>([
     { id: 1, name: "", duration: 30 },
   ]);
-
   const [transitions, setTransitions] = useState<TransitionType[]>([]);
 
   const generateTransitionName = (fromId: number, toId: number) => {
@@ -24,27 +23,11 @@ export default function ShowPlanner() {
     const newScenes = [...scenes];
     newScenes.splice(index + 1, 0, newScene);
     setScenes(newScenes);
-
-    const newTransitions = newScenes.slice(1).map((scene, i) => ({
-      from: newScenes[i].id,
-      to: scene.id,
-      duration: transitions[i] ? transitions[i].duration : 10,
-      name: generateTransitionName(newScenes[i].id, scene.id),
-    }));
-    setTransitions(newTransitions);
   };
 
   const removeScene = (index: number) => {
     const newScenes = scenes.filter((_, i) => i !== index);
     setScenes(newScenes);
-
-    const newTransitions = newScenes.slice(1).map((scene, i) => ({
-      from: newScenes[i].id,
-      to: scene.id,
-      duration: transitions[i] ? transitions[i].duration : 10,
-      name: generateTransitionName(newScenes[i].id, scene.id),
-    }));
-    setTransitions(newScenes.length > 1 ? newTransitions : []);
   };
 
   const updateScene = (
@@ -55,14 +38,6 @@ export default function ShowPlanner() {
     const newScenes = [...scenes];
     newScenes[index] = { ...newScenes[index], [field]: value };
     setScenes(newScenes);
-
-    if (field === "name") {
-      const newTransitions = transitions.map((transition) => ({
-        ...transition,
-        name: generateTransitionName(transition.from, transition.to),
-      }));
-      setTransitions(newTransitions);
-    }
   };
 
   const updateTransition = (index: number, value: number) => {
@@ -72,6 +47,23 @@ export default function ShowPlanner() {
       setTransitions(newTransitions);
     }
   };
+
+  // ✅ Use useEffect to update transitions when scenes change
+  useEffect(() => {
+    if (scenes.length < 2) {
+      setTransitions([]);
+      return;
+    }
+
+    const newTransitions = scenes.slice(1).map((scene, i) => ({
+      from: scenes[i].id,
+      to: scene.id,
+      duration: transitions[i] ? transitions[i].duration : 10,
+      name: generateTransitionName(scenes[i].id, scene.id),
+    }));
+
+    setTransitions(newTransitions);
+  }, [scenes]); // Runs whenever `scenes` changes
 
   const totalScenesDuration = scenes.reduce(
     (sum, scene) => sum + scene.duration,
